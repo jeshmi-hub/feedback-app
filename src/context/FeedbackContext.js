@@ -1,4 +1,3 @@
-import {v4 as uuidv4} from 'uuid'
 import { createContext, useState, useEffect } from 'react'
 
 const FeedbackContext = createContext()
@@ -19,7 +18,7 @@ export const FeedbackProvider = ({ children }) => {
   const fetchFeedback = async () => {
     const response = await fetch(`/feedback?_sort=id&_order=desc`)
     const data = await response.json()
-
+    
     setFeedback(data)
     setIsLoading(false)
   }
@@ -60,11 +59,10 @@ export const FeedbackProvider = ({ children }) => {
 
     const data = await response.json()
 
-    // NOTE: no need to spread data and item
+    
     setFeedback(feedback.map((item) => (item.id === id ? data : item)))
 
-    // FIX: this fixes being able to add a feedback after editing
-    // credit to Jose https://www.udemy.com/course/react-front-to-back-2022/learn/lecture/29768200#questions/16462688
+    
     setFeedbackEdit({
       item: {},
       edit: false,
